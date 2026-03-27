@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { CheckCircle2Icon, XCircleIcon, Loader2Icon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useBookingStore } from '@/Stores/useBookingStore';
@@ -8,6 +7,7 @@ import { formatCurrency } from '@/lib/utils/formatCurrency';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Separator } from '@/Components/ui/separator';
+import { DatePairDisplay } from './DatePairDisplay';
 import type { PropertyData } from '@/types/property';
 
 interface StatusStepProps {
@@ -15,7 +15,7 @@ interface StatusStepProps {
 }
 
 export function StatusStep({ propertyData }: StatusStepProps) {
-  const { bookingId, checkIn, checkOut, rooms, goToStep, reset } =
+  const { bookingId, checkIn, checkOut, rooms, specialRequests, goToStep, reset } =
     useBookingStore();
   const { status, confirmationId, isPolling } = useBookingStatus(bookingId);
   const { units, property } = propertyData;
@@ -85,20 +85,7 @@ export function StatusStep({ propertyData }: StatusStepProps) {
           <CardTitle>Booking Summary</CardTitle>
         </CardHeader>
         <CardContent className={cn('space-y-4')}>
-          <div className={cn('grid grid-cols-2 gap-4')}>
-            <div>
-              <p className={cn('text-sm text-muted-foreground')}>Check-in</p>
-              <p className={cn('font-medium')}>
-                {checkIn ? format(new Date(checkIn), 'PPP') : '-'}
-              </p>
-            </div>
-            <div>
-              <p className={cn('text-sm text-muted-foreground')}>Check-out</p>
-              <p className={cn('font-medium')}>
-                {checkOut ? format(new Date(checkOut), 'PPP') : '-'}
-              </p>
-            </div>
-          </div>
+          <DatePairDisplay checkIn={checkIn} checkOut={checkOut} />
 
           <Separator />
 
@@ -122,6 +109,16 @@ export function StatusStep({ propertyData }: StatusStepProps) {
             <span>Total</span>
             <span>{formatCurrency(breakdown.total)}</span>
           </div>
+
+          {specialRequests && (
+            <>
+              <Separator />
+              <div>
+                <p className={cn('text-sm text-muted-foreground')}>Special Requests</p>
+                <p className={cn('mt-1 text-sm')}>{specialRequests}</p>
+              </div>
+            </>
+          )}
         </CardContent>
       </Card>
 

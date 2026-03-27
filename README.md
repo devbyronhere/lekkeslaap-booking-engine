@@ -5,6 +5,7 @@ A multi-step booking form for an Online Travel Agency, built as a technical asse
 ## Architecture Decisions
 
 ### Stack
+
 - **Backend:** Laravel 12 + Breeze + Inertia.js (PHP 8.5)
 - **Frontend:** React 18 + TypeScript + Tailwind CSS v4 + shadcn/ui (Radix)
 - **State:** Zustand with localStorage persistence (survives refresh and auth redirects)
@@ -29,6 +30,7 @@ A multi-step booking form for an Online Travel Agency, built as a technical asse
 ## Setup & Run Instructions
 
 ### Prerequisites
+
 - PHP 8.2+
 - Composer
 - Node.js 20+
@@ -104,9 +106,10 @@ npx vitest --run
 
 ## AI Workflow
 
-This project was built using Claude Code (Anthropic's agentic AI CLI). AI session transcripts are included in the `docs/ai-sessions/` directory.
+This project was built using Claude Code (Anthropic's agentic AI CLI).
 
 The workflow involved:
+
 1. Planning the architecture and making key decisions upfront
 2. Using Claude Code to scaffold the project and implement features
 3. Reviewing and guiding AI output at each step

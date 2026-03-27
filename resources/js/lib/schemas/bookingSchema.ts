@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { roomSelectionSchema } from './roomSchema';
+import { hasSelectedRooms } from '@/lib/utils/hasSelectedRooms';
 
 export const bookingSchema = z
   .object({
@@ -7,7 +8,7 @@ export const bookingSchema = z
     checkOut: z.string().min(1, 'Check-out date is required'),
     rooms: z
       .array(roomSelectionSchema)
-      .refine((rooms) => rooms.some((r) => r.quantity > 0), {
+      .refine(hasSelectedRooms, {
         message: 'Please select at least one room',
       }),
     specialRequests: z

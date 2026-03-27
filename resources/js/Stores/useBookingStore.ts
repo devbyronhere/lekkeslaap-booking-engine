@@ -1,20 +1,20 @@
+import { z } from 'zod';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { roomSelectionSchema } from '@/lib/schemas/roomSchema';
 
-export interface RoomSelection {
-  unitId: number;
-  quantity: number;
-  guests: number;
-}
+export type RoomSelection = z.infer<typeof roomSelectionSchema>;
 
-interface BookingState {
-  currentStep: number;
-  checkIn: string | null;
-  checkOut: string | null;
-  rooms: RoomSelection[];
-  specialRequests: string;
-  bookingId: number | null;
-}
+const bookingStateSchema = z.object({
+  currentStep: z.number().int().min(1).max(5),
+  checkIn: z.string().nullable(),
+  checkOut: z.string().nullable(),
+  rooms: z.array(roomSelectionSchema),
+  specialRequests: z.string(),
+  bookingId: z.number().nullable(),
+});
+
+type BookingState = z.infer<typeof bookingStateSchema>;
 
 interface BookingActions {
   setDates: (checkIn: string, checkOut: string) => void;
@@ -49,6 +49,13 @@ export const useBookingStore = create<BookingState & BookingActions>()(
       goToStep: (step) => set({ currentStep: step }),
       reset: () => set(initialState),
     }),
-    { name: 'booking-wizard' }
+    {
+      name: 'booking-wizard',
+      // Parse localStorage data through Zod to prevent corrupted/tampered state
+      merge: (persisted, current) => {
+        const result = bookingStateSchema.safeParse(persisted);
+        return { ...current, ...(result.success ? result.data : {}) };
+      },
+    }
   )
 );

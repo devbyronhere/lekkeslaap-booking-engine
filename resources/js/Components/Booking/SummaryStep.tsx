@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { z } from 'zod';
 import { router } from '@inertiajs/react';
 import { Link } from '@inertiajs/react';
-import { format } from 'date-fns';
 import { InfoIcon, LogInIcon, Loader2Icon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useBookingStore } from '@/Stores/useBookingStore';
@@ -19,6 +19,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/Components/ui/tooltip';
+import { DatePairDisplay } from './DatePairDisplay';
 import type { PropertyData } from '@/types/property';
 import type { User } from '@/types';
 
@@ -70,8 +71,8 @@ export function SummaryStep({ propertyData, auth }: SummaryStepProps) {
       },
       {
         onSuccess: (page) => {
-          // The booking ID should be in the response flash or props
-          const bookingId = (page.props as Record<string, unknown>).bookingId as number | undefined;
+          const result = z.object({ bookingId: z.number().optional() }).safeParse(page.props);
+          const bookingId = result.success ? result.data.bookingId : undefined;
           if (bookingId) {
             setBookingId(bookingId);
           }
@@ -99,21 +100,7 @@ export function SummaryStep({ propertyData, auth }: SummaryStepProps) {
           <CardTitle>Booking Details</CardTitle>
         </CardHeader>
         <CardContent className={cn('space-y-4')}>
-          {/* Dates */}
-          <div className={cn('grid grid-cols-2 gap-4')}>
-            <div>
-              <p className={cn('text-sm text-muted-foreground')}>Check-in</p>
-              <p className={cn('font-medium')}>
-                {checkIn ? format(new Date(checkIn), 'PPP') : '-'}
-              </p>
-            </div>
-            <div>
-              <p className={cn('text-sm text-muted-foreground')}>Check-out</p>
-              <p className={cn('font-medium')}>
-                {checkOut ? format(new Date(checkOut), 'PPP') : '-'}
-              </p>
-            </div>
-          </div>
+          <DatePairDisplay checkIn={checkIn} checkOut={checkOut} />
           <p className={cn('text-sm text-muted-foreground')}>
             {nights} {nights === 1 ? 'night' : 'nights'}
           </p>
@@ -211,7 +198,7 @@ export function SummaryStep({ propertyData, auth }: SummaryStepProps) {
               Log in
             </Link>{' '}
             or{' '}
-            <Link href="/register" className={cn('font-medium underline')}>
+            <Link href="/sign-up" className={cn('font-medium underline')}>
               create an account
             </Link>
             .

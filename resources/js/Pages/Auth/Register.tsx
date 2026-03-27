@@ -1,9 +1,8 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/Components/ui/button';
+import { InertiaFormField } from '@/Components/ui/InertiaFormField';
 import { FormEventHandler } from 'react';
 
 export default function Register() {
@@ -24,97 +23,71 @@ export default function Register() {
 
     return (
         <GuestLayout>
-            <Head title="Register" />
+            <Head title="Sign Up" />
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
+            <h2 className={cn('text-xl font-semibold text-foreground mb-6')}>Sign Up</h2>
 
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                    />
+            <form onSubmit={submit} className={cn('space-y-4')}>
+                <InertiaFormField
+                    id="name"
+                    label="Name"
+                    value={data.name}
+                    autoComplete="name"
+                    autoFocus
+                    required
+                    error={errors.name}
+                    onChange={(v) => setData('name', v)}
+                />
 
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
+                <InertiaFormField
+                    id="email"
+                    label="Email"
+                    type="email"
+                    value={data.email}
+                    autoComplete="username"
+                    required
+                    error={errors.email}
+                    onChange={(v) => setData('email', v)}
+                />
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                <InertiaFormField
+                    id="password"
+                    label="Password"
+                    type="password"
+                    value={data.password}
+                    autoComplete="new-password"
+                    required
+                    error={errors.password}
+                    onChange={(v) => setData('password', v)}
+                />
 
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                    />
+                <InertiaFormField
+                    id="password_confirmation"
+                    label="Confirm Password"
+                    type="password"
+                    value={data.password_confirmation}
+                    autoComplete="new-password"
+                    required
+                    error={errors.password_confirmation}
+                    onChange={(v) => setData('password_confirmation', v)}
+                />
 
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) =>
-                            setData('password_confirmation', e.target.value)
-                        }
-                        required
-                    />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                    <Link
-                        href={route('login')}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                <div className={cn('flex items-center justify-end pt-2')}>
+                    <Button
+                        type="submit"
+                        disabled={processing}
+                        className={cn('bg-brand-orange text-white hover:bg-brand-orange/90')}
                     >
-                        Already registered?
-                    </Link>
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
+                        Sign Up
+                    </Button>
                 </div>
+
+                <p className={cn('text-center text-sm text-muted-foreground')}>
+                    Already have an account?{' '}
+                    <Link href={route('login')} className={cn('text-brand-orange hover:underline')}>
+                        Sign In
+                    </Link>
+                </p>
             </form>
         </GuestLayout>
     );

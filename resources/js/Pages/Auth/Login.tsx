@@ -1,10 +1,9 @@
-import Checkbox from '@/Components/Checkbox';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/Components/ui/button';
+import { Label } from '@/Components/ui/label';
+import { InertiaFormField } from '@/Components/ui/InertiaFormField';
 import { FormEventHandler } from 'react';
 
 export default function Login({
@@ -30,80 +29,76 @@ export default function Login({
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
+            <Head title="Sign In" />
+
+            <h2 className={cn('text-xl font-semibold text-foreground mb-6')}>Sign In</h2>
 
             {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
+                <div className={cn('mb-4 text-sm font-medium text-green-600')}>
                     {status}
                 </div>
             )}
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
+            <form onSubmit={submit} className={cn('space-y-4')}>
+                <InertiaFormField
+                    id="email"
+                    label="Email"
+                    type="email"
+                    value={data.email}
+                    autoComplete="username"
+                    autoFocus
+                    error={errors.email}
+                    onChange={(v) => setData('email', v)}
+                />
 
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        isFocused={true}
-                        onChange={(e) => setData('email', e.target.value)}
+                <InertiaFormField
+                    id="password"
+                    label="Password"
+                    type="password"
+                    value={data.password}
+                    autoComplete="current-password"
+                    error={errors.password}
+                    onChange={(v) => setData('password', v)}
+                />
+
+                <div className={cn('flex items-center')}>
+                    <input
+                        id="remember"
+                        type="checkbox"
+                        checked={data.remember}
+                        onChange={(e) => setData('remember', e.target.checked)}
+                        className={cn('size-4 rounded border-input text-brand-orange accent-brand-orange')}
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
+                    <Label htmlFor="remember" className={cn('ml-2 text-sm text-muted-foreground')}>
+                        Remember me
+                    </Label>
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4 block">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) =>
-                                setData(
-                                    'remember',
-                                    (e.target.checked || false) as false,
-                                )
-                            }
-                        />
-                        <span className="ms-2 text-sm text-gray-600">
-                            Remember me
-                        </span>
-                    </label>
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
+                <div className={cn('flex items-center justify-between pt-2')}>
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className={cn('text-sm text-muted-foreground hover:text-foreground')}
                         >
                             Forgot your password?
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
+                    <Button
+                        type="submit"
+                        disabled={processing}
+                        className={cn('bg-brand-orange text-white hover:bg-brand-orange/90 ml-auto')}
+                    >
+                        Sign In
+                    </Button>
                 </div>
+
+                <p className={cn('text-center text-sm text-muted-foreground')}>
+                    Don't have an account?{' '}
+                    <Link href={route('register')} className={cn('text-brand-orange hover:underline')}>
+                        Sign Up
+                    </Link>
+                </p>
             </form>
         </GuestLayout>
     );

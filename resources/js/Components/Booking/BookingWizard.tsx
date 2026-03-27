@@ -22,9 +22,13 @@ const STEPS = [
 
 export function BookingWizard({ propertyData, auth }: BookingWizardProps) {
   const currentStep = useBookingStore((s) => s.currentStep);
+  const goToStep = useBookingStore((s) => s.goToStep);
   const stepContainerRef = useRef<HTMLDivElement>(null);
+  const currentStepIndex = STEPS.findIndex((s) => s.number === currentStep);
+  const currentStepConfig = STEPS[currentStepIndex];
+  const progressPercent = (currentStepIndex / (STEPS.length - 1)) * 100;
+  const displayStep = currentStep === 5 ? 4 : currentStep;
 
-  // Focus management on step change
   useEffect(() => {
     stepContainerRef.current?.focus();
   }, [currentStep]);
@@ -32,48 +36,60 @@ export function BookingWizard({ propertyData, auth }: BookingWizardProps) {
   return (
     <div className={cn('mx-auto w-full max-w-3xl space-y-8')}>
       {/* Step indicator */}
-      <nav aria-label="Booking progress">
-        <ol className={cn('flex items-center justify-center gap-2 sm:gap-4')}>
-          {STEPS.map(({ number, label }) => {
+      <nav aria-label="Booking progress" className={cn('rounded-xl p-4')}>
+        <ol className={cn('flex items-center')}>
+          {STEPS.map(({ number, label }, index) => {
+            const displayNumber = number === 5 ? 4 : number;
             const isActive = currentStep === number;
             const isCompleted = currentStep > number;
-            // Status step is only reached via booking submission
-            const isReachable = number < 5 || currentStep === 5;
 
             return (
-              <li key={number} className={cn('flex items-center gap-2')}>
-                <div
+              <li key={number} className={cn('flex items-center', index < STEPS.length - 1 && 'flex-1')}>
+                <button
+                  type="button"
+                  onClick={() => isCompleted && goToStep(number)}
+                  disabled={!isCompleted}
                   className={cn(
-                    'flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors',
-                    isActive && 'bg-primary text-primary-foreground',
-                    isCompleted && 'bg-primary/20 text-primary',
-                    !isActive && !isCompleted && 'bg-muted text-muted-foreground'
-                  )}
-                  aria-current={isActive ? 'step' : undefined}
-                  aria-label={`Step ${number}: ${label}${isCompleted ? ' (completed)' : ''}${isActive ? ' (current)' : ''}`}
-                >
-                  {isCompleted ? (
-                    <svg className={cn('h-4 w-4')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  ) : (
-                    number === 5 ? 4 : number
-                  )}
-                </div>
-                <span
-                  className={cn(
-                    'hidden text-sm sm:inline',
-                    isActive ? 'font-medium text-foreground' : 'text-muted-foreground',
-                    !isReachable && 'opacity-50'
+                    'flex items-center gap-2 rounded-full px-1 py-1 transition-colors sm:pr-3',
+                    isActive && 'bg-primary/10',
+                    isCompleted && 'cursor-pointer hover:bg-primary/10'
                   )}
                 >
-                  {label}
-                </span>
-                {number !== 5 && (
                   <div
                     className={cn(
-                      'hidden h-px w-8 sm:block',
-                      isCompleted ? 'bg-primary' : 'bg-border'
+                      'flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors',
+                      isActive && 'border-primary bg-primary text-primary-foreground shadow-sm',
+                      isCompleted && 'border-primary bg-primary text-primary-foreground',
+                      !isActive && !isCompleted && 'border-gray-300 bg-gray-200 text-gray-400'
+                    )}
+                    aria-current={isActive ? 'step' : undefined}
+                    aria-label={`Step ${displayNumber}: ${label}${isCompleted ? ' (completed)' : ''}${isActive ? ' (current)' : ''}`}
+                  >
+                    {isCompleted ? (
+                      <svg className={cn('h-4 w-4')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      displayNumber
+                    )}
+                  </div>
+                  <span
+                    className={cn(
+                      'hidden text-sm sm:inline',
+                      isActive && 'font-semibold text-foreground',
+                      isCompleted && 'font-medium text-primary',
+                      !isActive && !isCompleted && 'text-gray-400'
+                    )}
+                  >
+                    {label}
+                  </span>
+                </button>
+                {/* Connector line between steps */}
+                {index < STEPS.length - 1 && (
+                  <div
+                    className={cn(
+                      'mx-3 hidden h-0.5 flex-1 rounded-full sm:block',
+                      isCompleted ? 'bg-primary' : 'bg-muted-foreground/20'
                     )}
                     aria-hidden="true"
                   />
@@ -82,6 +98,20 @@ export function BookingWizard({ propertyData, auth }: BookingWizardProps) {
             );
           })}
         </ol>
+        {/* Progress bar */}
+        <div className={cn('mt-3 h-1.5 w-full overflow-hidden rounded-full bg-muted')} aria-hidden="true">
+          <div
+            className={cn('h-full rounded-full bg-primary transition-all duration-300')}
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
+        {/* Mobile step label */}
+        <p className={cn('mt-2 text-center text-sm text-muted-foreground sm:hidden')}>
+          Step {displayStep} of 4:{' '}
+          <span className={cn('font-medium text-foreground')}>
+            {currentStepConfig?.label}
+          </span>
+        </p>
       </nav>
 
       {/* Step content */}

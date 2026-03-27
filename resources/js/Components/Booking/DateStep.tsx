@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { dateSchema, type DateFormValues } from '@/lib/schemas';
 import { useBookingStore } from '@/Stores/useBookingStore';
 import { calculateNights } from '@/lib/utils/calculatePrice';
+import { FieldError } from '@/Components/ui/FieldError';
 import { Button } from '@/Components/ui/button';
 import { Calendar } from '@/Components/ui/calendar';
 import { Label } from '@/Components/ui/label';
@@ -56,6 +57,7 @@ export function DateStep() {
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
+                    type="button"
                     id="checkIn"
                     variant="outline"
                     size="lg"
@@ -86,11 +88,7 @@ export function DateStep() {
               </Popover>
             )}
           />
-          {errors.checkIn && (
-            <p className={cn('text-sm text-destructive')} role="alert">
-              {errors.checkIn.message}
-            </p>
-          )}
+          <FieldError message={errors.checkIn?.message} />
         </div>
 
         {/* Check-out date picker */}
@@ -141,11 +139,7 @@ export function DateStep() {
               );
             }}
           />
-          {errors.checkOut && (
-            <p className={cn('text-sm text-destructive')} role="alert">
-              {errors.checkOut.message}
-            </p>
-          )}
+          <FieldError message={errors.checkOut?.message} />
         </div>
       </div>
 

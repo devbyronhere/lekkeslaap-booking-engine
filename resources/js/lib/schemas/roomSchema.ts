@@ -1,15 +1,17 @@
 import { z } from 'zod';
+import { hasSelectedRooms } from '@/lib/utils/hasSelectedRooms';
 
 export const roomSelectionSchema = z.object({
   unitId: z.number(),
   quantity: z.number().int().min(0),
   guests: z.number().int().min(0),
+  guestsPerRoom: z.array(z.number().int().min(1)).optional(),
 });
 
 export const roomSchema = z.object({
   rooms: z
     .array(roomSelectionSchema)
-    .refine((rooms) => rooms.some((r) => r.quantity > 0), {
+    .refine(hasSelectedRooms, {
       message: 'Please select at least one room',
     }),
 });

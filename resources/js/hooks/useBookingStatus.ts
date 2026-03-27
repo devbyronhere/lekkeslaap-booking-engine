@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
-import type { BookingStatus, BookingStatusResponse } from '@/types/booking';
+import type { BookingStatus } from '@/types/booking';
+import { bookingStatusResponseSchema } from '@/types/booking';
 
 const POLL_INTERVAL_MS = 2500;
 const TIMEOUT_MS = 60000;
@@ -38,9 +39,8 @@ export function useBookingStatus(bookingId: number | null): UseBookingStatusResu
 
     const poll = async () => {
       try {
-        const { data } = await axios.get<BookingStatusResponse>(
-          `/api/bookings/${bookingId}/status`
-        );
+        const { data: raw } = await axios.get(`/api/bookings/${bookingId}/status`);
+        const data = bookingStatusResponseSchema.parse(raw);
         setStatus(data.status);
         if (data.confirmation_id) {
           setConfirmationId(data.confirmation_id);

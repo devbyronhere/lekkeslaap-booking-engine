@@ -1,0 +1,2 @@
+- [Byron Devin Profile](user_profile.md) - Fullstack eng at Mohara, interviewing for LekkeSlaap
+- [Coding Style Preferences](feedback_coding_style.md) - Coding rules, git workflow, style conventions

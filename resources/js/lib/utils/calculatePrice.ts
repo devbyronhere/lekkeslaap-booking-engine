@@ -11,6 +11,18 @@ export interface PriceLineItem {
   lineTotal: number;
 }
 
+export function calculateLineTotal(
+  pricingModel: 'per_unit' | 'per_person',
+  unitPrice: number,
+  quantity: number,
+  guests: number,
+  nights: number
+): number {
+  return pricingModel === 'per_unit'
+    ? unitPrice * nights * quantity
+    : unitPrice * guests * nights;
+}
+
 export interface PriceBreakdown {
   lineItems: PriceLineItem[];
   subtotal: number;
@@ -42,17 +54,18 @@ export function calculatePrice(
         return null;
       }
 
-      const lineTotal =
-        unit.pricing_model === 'per_unit'
-          ? unit.price * nights * room.quantity
-          : unit.price * room.guests * nights * room.quantity;
+      const totalGuests = room.guestsPerRoom?.reduce((s, g) => s + g, 0) ?? room.guests;
+
+      const lineTotal = calculateLineTotal(
+        unit.pricing_model, unit.price, room.quantity, totalGuests, nights
+      );
 
       return {
         unitName: unit.name,
         unitPrice: unit.price,
         pricingModel: unit.pricing_model,
         quantity: room.quantity,
-        guests: room.guests,
+        guests: totalGuests,
         nights,
         lineTotal,
       };
