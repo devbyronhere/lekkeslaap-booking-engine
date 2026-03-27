@@ -16,7 +16,7 @@ class BookingPageController
     public function index(Request $request): Response
     {
         return Inertia::render('Booking/Index', [
-            'property' => $this->propertyService->get(),
+            'propertyData' => $this->propertyService->get(),
         ])->toResponse($request)->header('Cache-Control', 'public, max-age=3600, s-maxage=3600');
     }
 }
