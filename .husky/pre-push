@@ -1,0 +1,1 @@
+git tag -l | while read tag; do if ! git cat-file -t "$tag" | grep -q "tag"; then echo "Error: Lightweight tag found. Use annotated tags only." && exit 1; fi; done
