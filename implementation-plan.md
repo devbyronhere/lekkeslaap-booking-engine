@@ -50,22 +50,22 @@
 
 ### 2.1 Create Laravel Project (~5 min)
 
-- [ ] **2.1.1** Create new Laravel project:
+- [x] **2.1.1** Create new Laravel project:
   ```bash
   composer create-project laravel/laravel booking-engine
   cd booking-engine
   ```
-- [ ] **2.1.2** Install Laravel Breeze with React + TypeScript + Inertia:
+- [x] **2.1.2** Install Laravel Breeze with React + TypeScript + Inertia:
   ```bash
   composer require laravel/breeze --dev
   php artisan breeze:install react --typescript
   ```
-- [ ] **2.1.3** Install npm dependencies and verify build:
+- [x] **2.1.3** Install npm dependencies and verify build:
   ```bash
   npm install && npm run build
   ```
-- [ ] **2.1.4** Verify SQLite is configured: check `.env` for `DB_CONNECTION=sqlite`
-- [ ] **2.1.5** Run initial migrations: `php artisan migrate`
+- [x] **2.1.4** Verify SQLite is configured: check `.env` for `DB_CONNECTION=sqlite`
+- [x] **2.1.5** Run initial migrations: `php artisan migrate`
 - [ ] **2.1.6** Start both servers and verify Breeze welcome page loads at `http://localhost:8000`:
   ```bash
   php artisan serve &
@@ -74,13 +74,13 @@
 
 ### 2.2 Copy Provided Assets
 
-- [ ] **2.2.1** Create `app/Services/` directory, copy `ChannelManagerService.php` into it
-- [ ] **2.2.2** Copy `property.json` to decided location (see 1.3.1)
-- [ ] **2.2.3** Copy `CLAUDE.md`, `key-decisions.md`, `open-questions.md` into project root
+- [x] **2.2.1** Create `app/Services/` directory, copy `ChannelManagerService.php` into it
+- [x] **2.2.2** Copy `property.json` to decided location (see 1.3.1)
+- [x] **2.2.3** Copy `CLAUDE.md`, `key-decisions.md`, `open-questions.md` into project root
 
 ### 2.3 Environment Configuration
 
-- [ ] **2.3.1** Set in `.env`:
+- [x] **2.3.1** Set in `.env`:
   ```
   QUEUE_CONNECTION=database
   APP_NAME="Lekke Localhost Lodge"
@@ -91,16 +91,16 @@
   php artisan queue:failed-table
   php artisan migrate
   ```
-- [ ] **2.3.3** Verify `SESSION_DRIVER=database` (Breeze default on Laravel 11+)
+- [x] **2.3.3** Verify `SESSION_DRIVER=database` (Breeze default on Laravel 11+)
 
 ### 2.4 shadcn/ui Setup (~3 min)
 
-- [ ] **2.4.1** ⚠️ **MANUAL** - Initialize shadcn/ui (interactive prompts):
+- [x] **2.4.1** ⚠️ **MANUAL** - Initialize shadcn/ui (interactive prompts):
   ```bash
   npx shadcn@latest init
   ```
   Select: TypeScript, default style, CSS at `resources/css/app.css`, confirm Tailwind config path
-- [ ] **2.4.2** Install all needed components upfront:
+- [x] **2.4.2** Install all needed components upfront:
   ```bash
   npx shadcn@latest add button card input label tooltip dialog form calendar popover textarea badge separator alert
   ```
@@ -108,35 +108,35 @@
 
 ### 2.5 Additional npm Dependencies (~2 min)
 
-- [ ] **2.5.1** Install Zustand: `npm install zustand`
-- [ ] **2.5.2** Install RHF + Zod (if not already from shadcn form): `npm install react-hook-form zod @hookform/resolvers`
-- [ ] **2.5.3** Install date-fns (for shadcn Calendar): `npm install date-fns`
-- [ ] **2.5.4** Install frontend test deps:
+- [x] **2.5.1** Install Zustand: `npm install zustand`
+- [x] **2.5.2** Install RHF + Zod (if not already from shadcn form): `npm install react-hook-form zod @hookform/resolvers`
+- [x] **2.5.3** Install date-fns (for shadcn Calendar): `npm install date-fns`
+- [x] **2.5.4** Install frontend test deps:
   ```bash
   npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom
   ```
-- [ ] **2.5.5** Create `vitest.config.ts` at project root with path aliases matching `tsconfig.json` and `jsdom` as test environment
+- [x] **2.5.5** Create `vitest.config.ts` at project root with path aliases matching `tsconfig.json` and `jsdom` as test environment
 
 ### 2.6 Commitlint + Husky (~3 min)
 
-- [ ] **2.6.1** Install commitlint:
+- [x] **2.6.1** Install commitlint:
   ```bash
   npm install -D @commitlint/cli @commitlint/config-conventional
   ```
-- [ ] **2.6.2** Create `commitlint.config.js`:
+- [x] **2.6.2** Create `commitlint.config.js`:
   ```js
   module.exports = { extends: ['@commitlint/config-conventional'] };
   ```
-- [ ] **2.6.3** Install and init Husky:
+- [x] **2.6.3** Install and init Husky:
   ```bash
   npm install -D husky
   npx husky init
   ```
-- [ ] **2.6.4** Add commit-msg hook:
+- [x] **2.6.4** Add commit-msg hook:
   ```bash
   echo 'npx --no -- commitlint --edit "$1"' > .husky/commit-msg
   ```
-- [ ] **2.6.5** Add pre-push hook to reject lightweight tags:
+- [x] **2.6.5** Add pre-push hook to reject lightweight tags:
   ```bash
   echo 'git tag -l | while read tag; do if ! git cat-file -t "$tag" | grep -q "tag"; then echo "Error: Lightweight tag found. Use annotated tags only." && exit 1; fi; done' > .husky/pre-push
   ```
@@ -157,7 +157,7 @@
 
 ### 2.8 Backend Test Setup
 
-- [ ] **2.8.1** Install Pest:
+- [x] **2.8.1** Install Pest:
   ```bash
   composer require pestphp/pest --dev --with-all-dependencies
   composer require pestphp/pest-plugin-laravel --dev
@@ -166,15 +166,15 @@
 
 ### 2.9 Git Setup
 
-- [ ] **2.9.1** Initialize repo: `git init`
-- [ ] **2.9.2** Review `.gitignore` (excludes `.env`, `vendor/`, `node_modules/`, SQLite DB)
-- [ ] **2.9.3** Initial commit:
+- [x] **2.9.1** Initialize repo: `git init`
+- [x] **2.9.2** Review `.gitignore` (excludes `.env`, `vendor/`, `node_modules/`, SQLite DB)
+- [x] **2.9.3** Initial commit:
   ```bash
   git add -A
   git commit -m "chore: scaffold Laravel Breeze + React + Inertia + TypeScript project"
   ```
-- [ ] **2.9.4** Create working branch: `git checkout -b feature/booking-engine`
-- [ ] **2.9.5** ⚠️ **MANUAL** - Create GitHub repo and push (confirm before running):
+- [x] **2.9.4** Create working branch: `git checkout -b feature/booking-engine`
+- [x] **2.9.5** ⚠️ **MANUAL** - Create GitHub repo and push (confirm before running):
   ```bash
   gh repo create lekkeslaap-booking-engine --private --source=. --push
   ```
