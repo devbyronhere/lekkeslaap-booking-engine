@@ -1,0 +1,72 @@
+{
+  "property": {
+    "id": 101,
+    "name": "Lekke Localhost Lodge",
+    "currency": "ZAR",
+    "tax_rate": 0.15,
+    "pictures": [
+      "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAcd5ebd9ae32ca7942726c306c99683716069196e37f48dda9c86a39f4e820fb37da8ae16ce9a8ceda844bc06562c4513a001?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+      "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAd5e170c8e39fa987b43ee6e7b1298709f1af18a17f24e8d7c927cc856cc882d1b4163c65a0cbae5a29a308eb60460295eb5d?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+      "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAe7c20e4b924a54f0768b34576a1dbeb96c8eebb6953269d697e136dcd81040ac441660cac548c29636dd5b4a67980938cfbc?w=2400&fit=crop&auto=enhance,format,compress&q=80"
+    ]
+  },
+  "units": [
+    {
+      "id": 1,
+      "name": "Standard Room",
+      "description": "A cozy room with a partial ocean view.",
+      "max_guests": 2,
+      "pricing_model": "per_unit",
+      "price": 1200.00,
+      "available_count": 5,
+      "pictures": [
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAA5c8f38854d3c695f248f2c261cbe0c3bfb00bb8fae54d1820e39dc2b34d0b06d2381264f880163368f85373bab1f239eaa89?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAb83fd8409cf914228bb80ec1f8ab6143d3546830099dcb1521a12ae0c0b4bb216604a0af6dde5fabb293414b840e55745a99?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAA7843e548efac01dc990758eadd624e78534990e11b9df89336a43b6d15ac15ede054600a281ea71f6743ba0e61c006e263c5?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAA6b57e742ba4ded745669ea0a15ae68d948c5f8b8364ae74a0a4b8d791e51ff0c2d044b5ebcde17b3c20385f198da8c4f8e6c?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAa259adc3554fdac7711c27b18bc8452bc0661ff21fd463461fb57cb3aaecbedd14b2136625cfd588236a53238ad0a5796345?w=2400&fit=crop&auto=enhance,format,compress&q=80"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Deluxe Suite",
+      "description": "Spacious suite with a balcony and full ocean view.",
+      "max_guests": 4,
+      "pricing_model": "per_unit",
+      "price": 2500.00,
+      "available_count": 2,
+      "pictures": [
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAA29cdbb4f79c180c6cb0b9731bbe000e7c1b58134bddbecaf2102e2fde5090eb818724a2c3bf1de6ba9022def72dda727217a?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAee07b1e2a53e5c2ea6fe1567bbda9209bc6e2e485835845897d3ef63d6a9ffb84a9242ad2d2c093e39d4bfd989b3c3449a1e?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAA609d9f9110d4a98961a0e3eed4099e06a978a2b0472ac57a4b3ab9184b4dc0be9ea12ff76f19200000edf746d71e6582f9f4?w=2400&fit=crop&auto=enhance,format,compress&q=80"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Family Cottage",
+      "description": "A detached cottage perfect for families. Charged per person, per night.",
+      "max_guests": 6,
+      "pricing_model": "per_person",
+      "price": 650.00,
+      "available_count": 1,
+      "pictures": [
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAA1e9e6976d98d2d9b509d4b62e9879137008891c3acd8544f278c4263a591b1194c01363257036515de6ac13ce1d45b41d86f?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAdef3c6b8e6fe5fe5b6735e11e4bda9c09f2ec58c9e6cfc4b20507b63a33312b95684955466ba3dbde25667579e072f5ae664?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAb9658c88cc6a4c1438015dfbcaa88c15cdc574e74511402bbe8e86c54dc4fec5f3181638f16adc07388aba1b9487045005ec?w=2400&fit=crop&auto=enhance,format,compress&q=80"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Backpacker Bunk",
+      "description": "A single bed in a shared dormitory. Charged per person, per night.",
+      "max_guests": 1,
+      "pricing_model": "per_person",
+      "price": 250.00,
+      "available_count": 8,
+      "pictures": [
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAA50a0d3d01f5dd54de5230e8f44456e8a3073f1e878016b02c02d5fb4b4d88ccda840e1d3b390f341ffdee1faea8dc44fb5a6?w=2400&fit=crop&auto=enhance,format,compress&q=80",
+        "https://travelground.imgix.net/AAEAAQAAAAAAAAAAAAAAecbc962dffc2918607a25ff2b2b1dd212b757f542333a6697abbc8a46fee45f20c0b5ad1dcf2e40eb307889aa5d7f0566d22?w=2400&fit=crop&auto=enhance,format,compress&q=80"
+      ]
+    }
+  ]
+}
